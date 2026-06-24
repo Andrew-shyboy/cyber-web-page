@@ -1,0 +1,435 @@
+/* ===== 公开简历页 Resume ===== */
+
+.resume-page {
+    min-height: 100vh;
+    position: relative;
+    padding: 100px 20px 60px;
+}
+
+.resume-container {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* 头部 */
+.resume-hero {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 36px;
+    background: var(--bg-panel);
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(5, 217, 232, 0.3), inset 0 0 30px rgba(5, 217, 232, 0.05);
+    position: relative;
+    margin-bottom: 32px;
+    overflow: hidden;
+}
+.resume-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-purple));
+}
+.resume-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(5, 217, 232, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.resume-avatar {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+}
+.resume-avatar .avatar-frame {
+    width: 100%;
+    height: 100%;
+}
+
+.resume-info {
+    flex: 1;
+    min-width: 0;
+}
+.resume-name {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    text-shadow: 0 0 15px rgba(224, 224, 255, 0.3);
+    line-height: 1.1;
+}
+.resume-title {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--neon-cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    text-shadow: 0 0 6px var(--neon-cyan);
+}
+.resume-title::before {
+    content: '◤ ';
+    color: var(--neon-pink);
+}
+.resume-id {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+}
+.resume-bio {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+/* 社交链接 */
+.resume-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(5, 5, 16, 0.6);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    transition: all 0.3s var(--ease-out);
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+.social-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon-cyan);
+    transform: translateX(-101%);
+    transition: transform 0.3s var(--ease-out);
+    z-index: -1;
+}
+.social-link:hover {
+    color: var(--bg-base);
+    box-shadow: 0 0 12px var(--neon-cyan);
+    text-shadow: none;
+}
+.social-link:hover::before {
+    transform: translateX(0);
+}
+.social-link--pink {
+    border-color: var(--neon-pink);
+    color: var(--neon-pink);
+}
+.social-link--pink::before { background: var(--neon-pink); }
+.social-link--pink:hover { box-shadow: 0 0 12px var(--neon-pink); }
+
+.social-link--hidden {
+    opacity: 0.5;
+    border-style: dashed;
+    cursor: default;
+}
+.social-link--hidden::before { display: none; }
+.social-link--hidden:hover {
+    color: var(--neon-cyan);
+    box-shadow: none;
+}
+
+/* 内容区 */
+.resume-section {
+    margin-bottom: 32px;
+    padding: 28px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    transition: border-color 0.3s;
+}
+.resume-section:hover {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px rgba(255, 42, 109, 0.15);
+}
+
+.resume-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--neon-pink);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    text-shadow: 0 0 8px var(--neon-pink);
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-base);
+}
+.resume-section-title::before {
+    content: '◆';
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+}
+.resume-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-base), transparent);
+}
+.resume-section-title .num {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    font-size: 11px;
+}
+
+/* 技能 */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.skill-tag {
+    position: relative;
+    padding: 6px 14px;
+    background: rgba(5, 5, 16, 0.6);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-shadow: 0 0 4px var(--neon-cyan);
+    transition: all 0.3s var(--ease-out);
+    cursor: default;
+    overflow: hidden;
+}
+.skill-tag::before {
+    content: '#';
+    color: var(--neon-pink);
+    margin-right: 4px;
+    font-weight: bold;
+}
+.skill-tag::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--neon-pink);
+    box-shadow: 0 0 6px var(--neon-pink);
+    width: var(--level, 70%);
+    transition: width 0.6s var(--ease-out);
+}
+.skill-tag:hover {
+    background: rgba(5, 217, 232, 0.1);
+    box-shadow: 0 0 12px rgba(5, 217, 232, 0.3);
+    transform: translateY(-2px);
+}
+
+.skill-radar {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1;
+    margin: 0 auto 24px;
+    position: relative;
+}
+.skill-radar canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* 经历时间线 */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--neon-pink), var(--neon-cyan), var(--neon-purple));
+    box-shadow: 0 0 8px var(--neon-cyan);
+}
+.timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -28px;
+    width: 14px;
+    height: 14px;
+    background: var(--bg-base);
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 8px var(--neon-cyan);
+    transform: rotate(45deg);
+    transition: all 0.3s;
+}
+.timeline-item:hover::before {
+    background: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 12px var(--neon-pink);
+}
+.timeline-date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--neon-pink);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    text-shadow: 0 0 4px var(--neon-pink);
+}
+.timeline-date::before {
+    content: '◤ ';
+}
+.timeline-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+}
+.timeline-company {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--neon-cyan);
+    margin-bottom: 8px;
+}
+.timeline-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* 联系面板（默认隐藏） */
+.contact-reveal {
+    margin-top: 24px;
+    padding: 20px;
+    background: rgba(5, 217, 232, 0.05);
+    border: 1px dashed var(--neon-cyan);
+    text-align: center;
+}
+.contact-reveal-btn {
+    padding: 8px 20px;
+    background: var(--neon-cyan);
+    color: var(--bg-base);
+    border: 1px solid var(--neon-cyan);
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 12px var(--neon-cyan);
+    transition: all 0.3s;
+}
+.contact-reveal-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+.contact-reveal-content {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    animation: fade-in 0.4s var(--ease-out);
+}
+.contact-reveal-content a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    text-shadow: 0 0 4px var(--neon-cyan);
+}
+.contact-reveal-content a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 6px var(--neon-pink);
+}
+
+/* 错误/下架状态 */
+.resume-error {
+    text-align: center;
+    padding: 80px 20px;
+    max-width: 500px;
+    margin: 80px auto;
+}
+.resume-error-icon {
+    font-size: 80px;
+    color: var(--neon-pink);
+    text-shadow: 0 0 20px var(--neon-pink);
+    margin-bottom: 24px;
+    font-family: var(--font-display);
+}
+.resume-error-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+}
+.resume-error-desc {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+/* 浮动操作 */
+.resume-actions {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 50;
+}
+.resume-actions .btn-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--bg-elevated);
+}
+.resume-actions .btn-icon svg { width: 18px; height: 18px; }
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .resume-page { padding: 80px 12px 40px; }
+    .resume-hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 16px;
+    }
+    .resume-avatar { width: 100px; height: 100px; }
+    .resume-socials { justify-content: center; }
+    .resume-section { padding: 20px 16px; }
+    .timeline { padding-left: 24px; }
+    .timeline-item::before { left: -22px; }
+    .resume-actions { bottom: 16px; right: 16px; }
+}

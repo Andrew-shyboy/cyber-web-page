@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Cyber Resume Maker - 赛博朋克风格个人简历生成器" />
+    <meta name="theme-color" content="#0a0a14" />
+    <title>// CYBER.RESUME.MAKER // 赛博简历生成器</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/cyberpunk.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/landing.css" />
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="stylesheet" href="css/resume.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/electric-border.css" />
+    <link rel="stylesheet" href="css/import.css" />
+
+    <!-- Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <!-- html2pdf -->
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    <!-- mammoth.js (DOCX 解析) -->
+    <script src="https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js"></script>
+    <!-- pdf.js (PDF 解析) -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script>
+        if (window.pdfjsLib) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+        }
+    </script>
+</head>
+<body>
+    <!-- 全局 3D 背景层 -->
+    <div id="global-bg" class="global-bg">
+        <canvas id="bg-canvas"></canvas>
+    </div>
+
+    <!-- 光标粒子层 -->
+    <canvas id="cursor-particles" class="cursor-particles"></canvas>
+
+    <!-- 扫描线叠层 -->
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 噪点叠层 -->
+    <div class="noise"></div>
+
+    <!-- 加载界面 -->
+    <div id="loader" class="loader">
+        <div class="loader-inner">
+            <div class="loader-glitch" data-text="INITIALIZING">INITIALIZING</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+            <div class="loader-status">// CONNECTING TO THE GRID //</div>
+        </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <nav id="top-nav" class="top-nav">
+        <div class="nav-brand" data-link="/">
+            <span class="nav-brand-icon">◢◤</span>
+            <span class="nav-brand-text">CYBER<span class="blink">_</span>RESUME</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#/" data-link="/">HOME</a></li>
+            <li><a href="#/editor" data-link="/editor">CREATE</a></li>
+            <li><a href="#/dashboard" data-link="/dashboard">DASHBOARD</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="audio-toggle" class="audio-toggle" title="切换音效">
+                <svg viewBox="0 0 24 24" class="audio-on"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                <svg viewBox="0 0 24 24" class="audio-off"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 路由挂载点 -->
+    <main id="app" class="app"></main>
+
+    <!-- 全局弹窗容器 -->
+    <div id="modal-root" class="modal-root"></div>
+
+    <!-- Toast 通知 -->
+    <div id="toast-root" class="toast-root"></div>
+
+    <!-- Scripts -->
+    <script src="js/encode.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/glitch.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/avatar.js"></script>
+    <script src="js/electric-border.js"></script>
+    <script src="js/import-resume.js"></script>
+    <script src="js/three/landing-scene.js"></script>
+    <script src="js/three/editor-scene.js"></script>
+    <script src="js/three/resume-scene.js"></script>
+    <script src="js/three/dashboard-scene.js"></script>
+    <script src="js/pages/landing.js"></script>
+    <script src="js/pages/editor.js"></script>
+    <script src="js/pages/resume.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

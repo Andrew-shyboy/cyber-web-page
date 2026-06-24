@@ -1,0 +1,84 @@
+/* ===== CSS 主题变量（赛博朋克） ===== */
+:root {
+    /* 核心色 */
+    --bg-base: #050510;
+    --bg-elevated: #0a0a1a;
+    --bg-panel: rgba(10, 10, 26, 0.72);
+    --bg-glass: rgba(20, 20, 40, 0.5);
+
+    /* 经典霓虹色 */
+    --neon-pink: #ff2a6d;
+    --neon-cyan: #05d9e8;
+    --neon-purple: #d300c5;
+    --neon-yellow: #f9f871;
+    --neon-green: #39ff14;
+    --neon-blue: #2d3bff;
+
+    /* 文本色 */
+    --text-primary: #e0e0ff;
+    --text-secondary: #a0a0c0;
+    --text-muted: #6a6a8a;
+    --text-dim: #3a3a5a;
+
+    /* 边框/分割 */
+    --border-base: rgba(255, 42, 109, 0.3);
+    --border-soft: rgba(5, 217, 232, 0.2);
+    --grid-line: rgba(5, 217, 232, 0.08);
+
+    /* 阴影/光晕 */
+    --shadow-pink: 0 0 20px rgba(255, 42, 109, 0.5);
+    --shadow-cyan: 0 0 20px rgba(5, 217, 232, 0.5);
+    --shadow-purple: 0 0 20px rgba(211, 0, 197, 0.5);
+
+    /* 字体 */
+    --font-display: 'Orbitron', 'Noto Sans SC', system-ui, sans-serif;
+    --font-body: 'Rajdhani', 'Noto Sans SC', system-ui, sans-serif;
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+
+    /* 圆角 */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+
+    /* 缓动 */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-glitch: steps(3, end);
+}
+
+/* 主题变体 - 用户可切换 */
+[data-theme="classic"] {
+    --neon-pink: #ff2a6d;
+    --neon-cyan: #05d9e8;
+    --neon-purple: #d300c5;
+}
+
+[data-theme="matrix"] {
+    --neon-pink: #39ff14;
+    --neon-cyan: #00ff9d;
+    --neon-purple: #00b894;
+}
+
+[data-theme="sunset"] {
+    --neon-pink: #ff6b35;
+    --neon-cyan: #ffb627;
+    --neon-purple: #ff006e;
+}
+
+[data-theme="ghost"] {
+    --neon-pink: #ffffff;
+    --neon-cyan: #cccccc;
+    --neon-purple: #888888;
+}
+
+[data-theme="void"] {
+    --neon-pink: #b026ff;
+    --neon-cyan: #5577ff;
+    --neon-purple: #ff26b0;
+}
+
+[data-theme="hazard"] {
+    --neon-pink: #ff073a;
+    --neon-cyan: #ffe600;
+    --neon-purple: #ff073a;
+}
